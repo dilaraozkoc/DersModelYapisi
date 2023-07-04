@@ -1,0 +1,45 @@
+﻿@model List<CartProductViewModel> 
+@{
+    
+    decimal toplam = 0;
+    decimal kdvToplam = 0;
+    decimal kdv = 0;
+}
+<table class="table" >
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+       
+        @for (int i = 0; i < @Model.Count; i++)
+        {
+            <tr>
+                <th scope="row">@Model[i].Id</th>
+                <td>@Model[i].Product.Name</td>
+                <td>@Model[i].Quantitiy</td>
+                <td>@Model[i].Price ₺</td>
+                
+            </tr>
+             toplam += @Model[i].Price * (Model[i].Quantitiy);
+        }
+        <tr>
+            <th scope="col">Toplam = @toplam ₺ </th>
+        </tr>
+        @{
+            kdv = (toplam * 1.18M) - toplam;
+            kdvToplam = toplam * 1.18M;
+        }
+        <tr>
+            <th scope="col">%18 KDV = @kdv ₺ </th>
+        </tr>
+        <tr>
+            <th scope="col">%18 KDV'li Toplam = @kdvToplam ₺ </th>
+        </tr>
+       
+</table>
